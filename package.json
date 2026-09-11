@@ -1,0 +1,39 @@
+{
+  "name": "@amritessh/scalpel",
+  "version": "0.1.0",
+  "description": "Symbol-level codebase retrieval MCP server: get_symbol(name) returns a definition span + usages, never a whole file.",
+  "main": "dist/server.js",
+  "bin": {
+    "scalpel": "dist/server.js",
+    "scalpel-index": "dist/build-index.js"
+  },
+  "files": [
+    "dist",
+    "drizzle"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amritessh/scalpel-mcp.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "code-retrieval",
+    "tree-sitter",
+    "claude-code"
+  ],
+  "author": "amritessh",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "better-sqlite3": "^12.11.1",
+    "drizzle-orm": "^0.45.2",
+    "gpt-tokenizer": "^4.0.0",
+    "tree-sitter": "^0.21.1",
+    "tree-sitter-go": "^0.21.2",
+    "tree-sitter-python": "^0.21.0",
+    "tree-sitter-typescript": "^0.23.2",
+    "zod": "^4.5.4"
+  }
+}
