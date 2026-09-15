@@ -46,9 +46,7 @@ scalpel wins on cost and accuracy on both question types — cheapest on plain d
 
 The first version of this comparison had scalpel *losing* to both competitors on definition-only cost (4,158 tokens vs. 2,723 and 2,386). Instead of tuning the marketing copy, we read the code: `get_symbol` was unconditionally fetching and returning every usage site, even when the question was just "where is this defined." Added a flag to skip that when it's not needed, re-ran the full benchmark, and the table above is the corrected result — publishing the numbers we actually measured, including the ones that were worse first. Full writeup, raw data, and the fix itself: [scalpel-fse2027-artifact](https://github.com/amritessh/scalpel-fse2027-artifact).
 
-## What it's honest about not doing
-
-Tested on 57 real historical bug-fixes: an agent using scalpel and a plain grep/Read agent fixed the same bugs, at the same speed. This tool makes retrieval cheaper and more accurate — it does not, on this evidence, make an agent better at finishing the task. If you're installing this hoping for faster bug fixes, the data says don't expect that; if you're running agents at volume where token cost is a real budget line, or doing usage/reference-heavy work (refactors, impact analysis), the numbers above hold up.
+**One honest limit**: tested on 57 real historical bug-fixes, this ties a plain grep/Read agent on fix rate and speed — cheaper and more accurate retrieval, not (on current evidence) a faster agent. Best fit: cost-sensitive usage at volume, and usage/reference-heavy work (refactors, impact analysis) where the accuracy edge above holds.
 
 ## Background
 
