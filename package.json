@@ -1,6 +1,6 @@
 {
   "name": "@amritessh/scalpel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Symbol-level codebase retrieval MCP server: get_symbol(name) returns a definition span + usages, never a whole file.",
   "main": "dist/server.js",
   "bin": {

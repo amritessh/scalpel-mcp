@@ -4,10 +4,16 @@ import { z } from "zod";
 import { getDefinitionsByName, getUsagesByName } from "../db/index.js";
 export const getSymbolInputSchema = {
     name: z.string().describe("Exact symbol name, e.g. a function, class, interface, or type name"),
+    includeUsages: z
+        .boolean()
+        .optional()
+        .describe("Set to false to skip call/reference sites and return only the definition span. Defaults to true. " +
+        "Use false when you only need to see where something is defined, not who calls it — skips the " +
+        "cost of a potentially large usages array for frequently-called symbols."),
 };
 export const getSymbolToolConfig = {
     title: "Get symbol",
-    description: "Look up a symbol by name and return its definition span (source text, not the whole file) plus every call/reference site. Use this instead of reading a full file when you only need one function/class/type.",
+    description: "Look up a symbol by name and return its definition span (source text, not the whole file) plus every call/reference site. Use this instead of reading a full file when you only need one function/class/type. Pass includeUsages: false if you only need the definition.",
     inputSchema: getSymbolInputSchema,
 };
 function readSpan(repoRoot, def) {
@@ -33,9 +39,9 @@ export function buildSymbolPayload(repoRoot, defs, usages) {
     };
 }
 export function makeGetSymbolHandler(db, repoRoot) {
-    return async ({ name }) => {
+    return async ({ name, includeUsages = true }) => {
         const defs = getDefinitionsByName(db, name);
-        const usages = getUsagesByName(db, name);
+        const usages = includeUsages ? getUsagesByName(db, name) : [];
         if (defs.length === 0) {
             return {
                 content: [{ type: "text", text: `No definition found for "${name}".` }],
